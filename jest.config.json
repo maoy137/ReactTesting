@@ -1,0 +1,39 @@
+{
+  "testEnvironment": "node",
+  "verbose": false,
+  "testURL": "http://localhost/",
+  "collectCoverage": false,
+  "collectCoverageFrom": [
+    "src/modules/**/*.{js,jsx}",
+    "!src/**/index.js",
+    "!**/node_modules/**",
+    "!src/**/*.stories.js"
+  ],
+  "coverageDirectory": "<rootDir>/coverage",
+  "coverageThreshold": {
+    "global": {
+      "branches": 0,
+      "functions": 0,
+      "lines": 0,
+      "statements": 0
+    }
+  },
+  "testRegex": "/.*\\.(test|spec)\\.js$",
+  "transform": {
+    "^.+\\.js$": "babel-jest"
+  },
+  "moduleNameMapper": {
+    "^~~routes(.*)$": "<rootDir>/src/routes$1",
+    "^~~routes$": "<rootDir>/src/routes/index.js",
+    "^~~static(.*)$": "<rootDir>/src/static$1"
+  },
+  "moduleFileExtensions": [
+    "js",
+    "jsx"
+  ],
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ],
+  "setupFilesAfterEnv": []
+}
