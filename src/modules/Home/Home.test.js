@@ -2,7 +2,6 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import Home from './Home';
-import { getRandomUser } from '~~apis/ApiService';
 
 const fakeData = {
   results: [
@@ -71,35 +70,56 @@ const fakeData = {
   },
 };
 
+const mockRandomUser = jest.fn();
+
 jest.mock('~~apis/ApiService', () => ({
-  getRandomUser: jest.fn().mockImplementation(() => fakeData),
+  getRandomUser: () => mockRandomUser(),
 }));
 
 describe('test home', () => {
-  test('test api', async () => {
-    const response = await getRandomUser();
-    console.log(response);
-    expect(response.info.seed).toBe('fe9e2694632a1418');
-  });
+  test('test success', async () => {
+    mockRandomUser.mockResolvedValue(fakeData);
 
-  test('test', async () => {
     render(<Home />);
 
     await waitFor(() => {
       expect(screen.getByTestId('home-seed')).toBeInTheDocument();
-      expect(screen.getByTestId('home-seed').textContent).toBe('seed: male');
+      expect(screen.getByTestId('home-seed').textContent).toBe('seed: fe9e2694632a1418');
 
-      expect(screen.getByTestId('home-gender-1')).toBeInTheDocument();
-      expect(screen.getByTestId('home-gender-1').textContent).toBe('gender: male');
+      expect(screen.getByTestId('home-gender-0')).toBeInTheDocument();
+      expect(screen.getByTestId('home-gender-0').textContent).toBe('gender: male');
 
-      expect(screen.getByTestId('home-name-1')).toBeInTheDocument();
-      expect(screen.getByTestId('home-name-1').textContent).toBe('name: Mr Benjamin West');
+      expect(screen.getByTestId('home-name-0')).toBeInTheDocument();
+      expect(screen.getByTestId('home-name-0').textContent).toBe('name: Mr Benjamin West');
 
-      expect(screen.getByTestId('home-email-1')).toBeInTheDocument();
-      expect(screen.getByTestId('home-email-1').textContent).toBe('email: benjamin.west@example.com');
+      expect(screen.getByTestId('home-email-0')).toBeInTheDocument();
+      expect(screen.getByTestId('home-email-0').textContent).toBe('email: benjamin.west@example.com');
 
-      expect(screen.getByTestId('home-phone-1')).toBeInTheDocument();
-      expect(screen.getByTestId('home-phone-1').textContent).toBe('phone: 08-3018-6768');
+      expect(screen.getByTestId('home-phone-0')).toBeInTheDocument();
+      expect(screen.getByTestId('home-phone-0').textContent).toBe('phone: 08-3018-6768');
+    });
+  });
+
+  test('test fail', async () => {
+    mockRandomUser.mockRejectedValue();
+
+    const { queryAllByTestId } = render(<Home />);
+
+    await waitFor(() => {
+      const seed = queryAllByTestId('home-seed');
+      expect(seed.length).toBe(0);
+
+      const gender = queryAllByTestId('home-gender-0');
+      expect(gender.length).toBe(0);
+
+      const name = queryAllByTestId('home-name-0');
+      expect(name.length).toBe(0);
+
+      const email = queryAllByTestId('home-email-0');
+      expect(email.length).toBe(0);
+
+      const phone = queryAllByTestId('home-phone-0');
+      expect(phone.length).toBe(0);
     });
   });
 });
