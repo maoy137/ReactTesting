@@ -20,25 +20,3 @@ test('renders learn react link', async () => {
   });
   // screen.debug();
 });
-
-const successFunc = (callback, value) => {
-  if (value > 0) {
-    callback.onSuccess(value);
-  } else {
-    throw new Error('error');
-  }
-};
-
-test('test callback to be called', () => {
-  const callback = {
-    onSuccess: jest.fn(),
-  };
-  successFunc(callback, 1);
-  expect(callback.onSuccess).toHaveBeenCalledWith(1);
-
-  const callError = () => {
-    successFunc(callback, -1);
-  };
-
-  expect(callError).toThrowError('error');
-});

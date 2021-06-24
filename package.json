@@ -5,9 +5,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "jest --config=jest.config.json --env=jsdom",
-    "test:watch": "jest --config=jest.config.json --watchAll --env=jsdom",
-    "test:coverage": "jest --config=jest.config.json --coverage --env=jsdom"
+    "test": "node scripts/test.js",
+    "test:coverage": "node scripts/testCoverage.js"
   },
   "dependencies": {
     "@babel/core": "7.12.3",
@@ -101,9 +100,12 @@
     "roots": [
       "<rootDir>/src"
     ],
+    "coverageDirectory": "<rootDir>/coverage",
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
+      "src/modules/**/*.{js,jsx}",
+      "!src/**/index.js",
+      "!**/node_modules/**",
+      "!src/**/*.stories.js"
     ],
     "setupFiles": [
       "react-app-polyfill/jsdom"
@@ -129,7 +131,10 @@
     "modulePaths": [],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "^~~routes(.*)$": "<rootDir>/src/routes$1",
+      "^~~routes$": "<rootDir>/src/routes/index.js",
+      "^~~static(.*)$": "<rootDir>/src/static$1"
     },
     "moduleFileExtensions": [
       "web.js",
