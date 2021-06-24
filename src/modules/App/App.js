@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
 } from 'react-router-dom';
 // import styled from 'styled-components';
 import logo from '~~static/logo.svg';
 import './App.css';
 import { Routes } from '~~routes';
 import Authentication from '../Authentication';
+import Switcher from './Switcher';
 
 const App = () => (
   <div className="App">
@@ -15,6 +16,7 @@ const App = () => (
       <p>WiDemo</p>
     </header>
     <Router>
+      <Switcher />
       <Authentication>
         <Routes />
       </Authentication>

@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.App-switch {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #484c54;
+  justify-content: center;
+}
+
+.Switch-btn {
+  min-width: 150px;
+  color: white;
+  background-color: #484c54;
+}
+
+.Switch-btn:hover {
+  background-color: #686c74;
+}

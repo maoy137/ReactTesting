@@ -5,6 +5,7 @@ const Counter = () => {
 
   return (
     <div>
+      <div data-testid="title-counter">Counter</div>
       <span data-testid="display-count">
         {`點了${count}下`}
       </span>

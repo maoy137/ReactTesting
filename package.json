@@ -132,6 +132,7 @@
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "^~~apis(.*)$": "<rootDir>/src/apis$1",
       "^~~routes(.*)$": "<rootDir>/src/routes$1",
       "^~~routes$": "<rootDir>/src/routes/index.js",
       "^~~static(.*)$": "<rootDir>/src/static$1"
